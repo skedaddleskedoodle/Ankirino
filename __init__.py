@@ -5,9 +5,9 @@ from aqt.qt import *
 from . import rpc
 import time
 
-# Rich presence connection
+# Connect
 client_id = '583084701510533126'
-# Check if discord is running, prevent error message
+# Error prevent
 connected = True
 try:
     rpc_obj = rpc.DiscordIpcClient.for_platform(client_id)
@@ -15,21 +15,14 @@ except:
     connected = False
     pass
 
-# Start time to show elapsed time
-start_time = round(time.time())
-
-# Globals
+# Global vars
 dueMessage = ""
 skipEdit = 0
 skipAnswer = 0
 
+# Start time
+start_time = round(time.time())
 
-
-##### UPDATE: Changes the RPC status
-# state is N. of cards due
-# details is current activity
-# pic is for mini-icon related to current activity
-#
 def update(state, details, pic):
     activity = {
             "state": state,
@@ -48,23 +41,17 @@ def update(state, details, pic):
     # send to server:
     rpc_obj.set_activity(activity)
 
-
-
-##### DUETODAY: Calculates reviews due
-# Stored in global variable 'dueMessage'
-# Don't call before Anki has loaded
-#
 def dueToday():
-    # Globals and reset variables
+    # Reset
     global dueMessage
     dueCount = 0
 
-    # Loop through deckDueTree to find cards due
+    # Loop loop
     for i in mw.col.sched.deckDueTree():
         name, did, due, lrn, new, children = i
         dueCount += due + lrn + new
 
-    # Correct for single or no cards
+    # Correct cards
     if dueCount == 0:
         dueMessage = "No cards left"
     elif dueCount == 1:
@@ -74,14 +61,8 @@ def dueToday():
 
 
 
-##### ONSTATE: Updates with state of anki
-# Takes current state and oldState from hook
-# If opening browse, skips 'edit' hook
-# List of base STATES:
-#  - deckBrowser
-#  - review
-#  - overview (ignored)
-#
+# Status update
+
 def onState(state, oldState):
     global skipEdit
 
