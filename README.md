@@ -1,6 +1,5 @@
-# Discord Rich Presence for Anki
+# Discord add on
 
 ### Description
-Anki link to Discord through Rich Presence
-
-Direct install add-on code: **1133851639**
+Displays Anki status in Discord
+Download to add on folder
